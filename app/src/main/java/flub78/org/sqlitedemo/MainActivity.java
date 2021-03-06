@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         MyDatabaseHelper db = new MyDatabaseHelper(this);
         db.createDefaultNotesIfNeed();
 
-        List<Note> list=  db.getAllNotes();
+        List<Note> list = db.getAllNotes();
         this.noteList.addAll(list);
 
 
@@ -67,45 +67,45 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View view,
-                                    ContextMenu.ContextMenuInfo menuInfo)    {
+                                    ContextMenu.ContextMenuInfo menuInfo) {
 
         super.onCreateContextMenu(menu, view, menuInfo);
         menu.setHeaderTitle("Select The Action");
 
         // groupId, itemId, order, title
-        menu.add(0, MENU_ITEM_VIEW , 0, "View Note");
-        menu.add(0, MENU_ITEM_CREATE , 1, "Create Note");
-        menu.add(0, MENU_ITEM_EDIT , 2, "Edit Note");
+        menu.add(0, MENU_ITEM_VIEW, 0, "View Note");
+        menu.add(0, MENU_ITEM_CREATE, 1, "Create Note");
+        menu.add(0, MENU_ITEM_EDIT, 2, "Edit Note");
         menu.add(0, MENU_ITEM_DELETE, 4, "Delete Note");
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item){
+    public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo
                 info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         final Note selectedNote = (Note) this.listView.getItemAtPosition(info.position);
 
-        if(item.getItemId() == MENU_ITEM_VIEW){
-            Toast.makeText(getApplicationContext(),selectedNote.getNoteContent(),Toast.LENGTH_LONG).show();
-        }
-        else if(item.getItemId() == MENU_ITEM_CREATE){
+        if (item.getItemId() == MENU_ITEM_VIEW) {
+            Toast.makeText(getApplicationContext(), selectedNote.getNoteContent(), Toast.LENGTH_LONG).show();
+
+        } else if (item.getItemId() == MENU_ITEM_CREATE) {
             Intent intent = new Intent(this, AddEditNoteActivity.class);
 
             // Start AddEditNoteActivity, (with feedback).
             this.startActivityForResult(intent, MY_REQUEST_CODE);
-        }
-        else if(item.getItemId() == MENU_ITEM_EDIT ){
+
+        } else if (item.getItemId() == MENU_ITEM_EDIT) {
             Intent intent = new Intent(this, AddEditNoteActivity.class);
             intent.putExtra("note", selectedNote);
 
             // Start AddEditNoteActivity, (with feedback).
-            this.startActivityForResult(intent,MY_REQUEST_CODE);
-        }
-        else if(item.getItemId() == MENU_ITEM_DELETE){
+            this.startActivityForResult(intent, MY_REQUEST_CODE);
+
+        } else if (item.getItemId() == MENU_ITEM_DELETE) {
             // Ask before deleting.
             new AlertDialog.Builder(this)
-                    .setMessage(selectedNote.getNoteTitle()+". Are you sure you want to delete?")
+                    .setMessage(selectedNote.getNoteTitle() + ". Are you sure you want to delete?")
                     .setCancelable(false)
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -114,15 +114,14 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .setNegativeButton("No", null)
                     .show();
-        }
-        else {
+        } else {
             return false;
         }
         return true;
     }
 
     // Delete a record
-    private void deleteNote(Note note)  {
+    private void deleteNote(Note note) {
         MyDatabaseHelper db = new MyDatabaseHelper(this);
         db.deleteNote(note);
         this.noteList.remove(note);
