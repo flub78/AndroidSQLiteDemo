@@ -38,7 +38,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.i(TAG, "MyDatabaseHelper.onCreate ... ");
-        System.out.println("MyDatabaseHelper.onCreate ... ");
         // Script.
         String script = "CREATE TABLE " + TABLE_NOTE + "("
                 + COLUMN_NOTE_ID + " INTEGER PRIMARY KEY," + COLUMN_NOTE_TITLE + " TEXT,"
