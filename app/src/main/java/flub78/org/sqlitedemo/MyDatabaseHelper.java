@@ -15,7 +15,7 @@ import java.util.List;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String TAG = "SQLite";
+    private static final String TAG = "MyDatabaseHelper";
 
     // Database Version
     private static final int DATABASE_VERSION = 1;
@@ -37,7 +37,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     // Create table
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.i(TAG, "MyDatabaseHelper.onCreate ... ");
+        Log.i(TAG, "onCreate ... ");
         // Script.
         String script = "CREATE TABLE " + TABLE_NOTE + "("
                 + COLUMN_NOTE_ID + " INTEGER PRIMARY KEY," + COLUMN_NOTE_TITLE + " TEXT,"
@@ -62,6 +62,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     // If Note table has no data
     // default, Insert 2 records.
     public void createDefaultNotesIfNeed()  {
+        Log.i(TAG, "createDefaultNotesIfNeed ... ");
         int count = this.getNotesCount();
         if(count ==0 ) {
             Note note1 = new Note("Firstly see Android ListView",
@@ -75,7 +76,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
     public void addNote(Note note) {
-        Log.i(TAG, "MyDatabaseHelper.addNote ... " + note.getNoteTitle());
+        Log.i(TAG, "addNote ... " + note.getNoteTitle());
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -92,7 +93,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
     public Note getNote(int id) {
-        Log.i(TAG, "MyDatabaseHelper.getNote ... " + id);
+        Log.i(TAG, "getNote ... " + id);
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -110,7 +111,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
     public List<Note> getAllNotes() {
-        Log.i(TAG, "MyDatabaseHelper.getAllNotes ... " );
+        Log.i(TAG, "getAllNotes ... " );
 
         List<Note> noteList = new ArrayList<Note>();
         // Select All Query
@@ -136,7 +137,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public int getNotesCount() {
-        Log.i(TAG, "MyDatabaseHelper.getNotesCount ... " );
+        Log.i(TAG, "getNotesCount ... " );
 
         String countQuery = "SELECT  * FROM " + TABLE_NOTE;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -152,7 +153,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
     public int updateNote(Note note) {
-        Log.i(TAG, "MyDatabaseHelper.updateNote ... "  + note.getNoteTitle());
+        Log.i(TAG, "updateNote ... "  + note.getNoteTitle());
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -166,7 +167,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void deleteNote(Note note) {
-        Log.i(TAG, "MyDatabaseHelper.updateNote ... " + note.getNoteTitle() );
+        Log.i(TAG, "deleteNote ... " + note.getNoteTitle() );
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NOTE, COLUMN_NOTE_ID + " = ?",

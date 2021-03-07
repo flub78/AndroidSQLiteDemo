@@ -25,7 +25,6 @@ import flub78.org.sqlitedemo.bean.Note;
  *
  * Unit test for MyDatabaseHelper
  *
- *
  */
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = {Config.OLDEST_SDK})
@@ -37,10 +36,10 @@ public class MyDatabaseHelperTest extends TestCase {
 
     @Before
     public void setUp() throws Exception {
-        super.setUp();
-
         // uncomment to see the logs on stdout
         ShadowLog.stream = System.out;
+
+        super.setUp();
 
         Log.i(TAG, "setup (((");
         Application myapp = RuntimeEnvironment.application;
@@ -54,7 +53,7 @@ public class MyDatabaseHelperTest extends TestCase {
     @After
     public void tearDown() throws Exception {
         Log.i(TAG, "))) teardown");
-        dbh = null;
+        dbh.close();
     }
 
     @Test
