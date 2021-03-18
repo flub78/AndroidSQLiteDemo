@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * DAO
+ * Implemented on SQLite
+ */
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "MyDatabaseHelper";
@@ -30,6 +34,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NOTE_TITLE ="Note_Title";
     private static final String COLUMN_NOTE_CONTENT = "Note_Content";
 
+    /**
+     * Constructor
+     * @param context
+     */
     public MyDatabaseHelper(Context context)  {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -59,9 +67,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    // If Note table has no data
-    // default, Insert 2 records.
-    public void createDefaultNotesIfNeed()  {
+    /**
+     * If Note table has no data insert 2 records
+     */
+     public void createDefaultNotesIfNeed()  {
         Log.i(TAG, "createDefaultNotesIfNeed ... ");
         int count = this.getNotesCount();
         if(count ==0 ) {
@@ -75,6 +84,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Save a single note in database
+     * @param note
+     */
     public void addNote(Note note) {
         Log.i(TAG, "addNote ... " + note.getNoteTitle());
 
@@ -92,6 +105,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Retrieve a single note
+     * @param id
+     * @return
+     */
     public Note getNote(int id) {
         Log.i(TAG, "getNote ... " + id);
 
@@ -110,6 +128,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Retrieve all notes
+     * @return
+     */
     public List<Note> getAllNotes() {
         Log.i(TAG, "getAllNotes ... " );
 
@@ -136,6 +158,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return noteList;
     }
 
+    /**
+     * Number of notes in the database
+     * @return
+     */
     public int getNotesCount() {
         Log.i(TAG, "getNotesCount ... " );
 
@@ -152,6 +178,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * Update an existing note
+     * @param note
+     * @return
+     */
     public int updateNote(Note note) {
         Log.i(TAG, "updateNote ... "  + note.getNoteTitle());
 
@@ -166,6 +197,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(note.getNoteId())});
     }
 
+    /**
+     * Delete one note from database
+     * @param note
+     */
     public void deleteNote(Note note) {
         Log.i(TAG, "deleteNote ... " + note.getNoteTitle() );
 

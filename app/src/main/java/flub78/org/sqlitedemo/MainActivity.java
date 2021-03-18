@@ -20,6 +20,12 @@ import flub78.org.sqlitedemo.bean.Note;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * SQLite tutorial
+ * https://devstory.net/10433/android-sqlite-database
+ *
+ * The main activity is the note list view
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ListView listView;
@@ -41,21 +47,20 @@ public class MainActivity extends AppCompatActivity {
         // Get ListView object from xml
         this.listView = (ListView) findViewById(R.id.listView);
 
+        // get a DAO access
         MyDatabaseHelper db = new MyDatabaseHelper(this);
+        // Create a few notes if empty
         db.createDefaultNotesIfNeed();
 
-        List<Note> list = db.getAllNotes();
-        this.noteList.addAll(list);
+        // Fetch all notes
+        this.noteList.addAll(db.getAllNotes());
 
 
         // Define a new Adapter
-        // 1 - Context
-        // 2 - Layout for the row
-        // 3 - ID of the TextView to which the data is written
-        // 4 - the List of data
-
-        this.listViewAdapter = new ArrayAdapter<Note>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, this.noteList);
+        this.listViewAdapter = new ArrayAdapter<Note> (this,    // 1 - Context
+                android.R.layout.simple_list_item_1,                    // 2 - Layout for the row (default SDK simple TextView)
+                android.R.id.text1,                                     // 3 - ID of the TextView to which the data is written
+                this.noteList);                                         // 4 - the List of data
 
         // Assign adapter to ListView
         this.listView.setAdapter(this.listViewAdapter);
@@ -143,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
                 MyDatabaseHelper db = new MyDatabaseHelper(this);
                 List<Note> list = db.getAllNotes();
                 this.noteList.addAll(list);
-
 
                 // Notify the data change (To refresh the ListView).
                 this.listViewAdapter.notifyDataSetChanged();
